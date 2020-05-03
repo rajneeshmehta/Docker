@@ -10,8 +10,7 @@ services:
       MYSQL_USER: rajneesh
       MYSQL_PASSWORD: redhat
       MYSQL_DATABASE: mydb
-    depoly:
-      replicas: 1
+    deploy: 
 
 
   wordpress:
