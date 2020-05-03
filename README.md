@@ -71,3 +71,77 @@ Creating service Wordpress_database
 Creating service Wordpress_wordpress
 Creating service Wordpress_visualizer
 ```
+And two ports pop up like this
+
+<img src="https://github.com/rajneeshmehta/Docker/blob/master/Images/create Service.png" alt="alt text" width="400" height="300"> 
+
+click both ports, It will open two tabs, on port 8089 You can access WordPress site and on port 8080 we can visulaize which node running which services.
+
+<img src="https://github.com/rajneeshmehta/Docker/blob/master/Images/wordpress.jpg" alt="alt text" width="400" height="300">  <img src="https://github.com/rajneeshmehta/Docker/blob/master/Images/visualizer.jpg" alt="alt text" width="400" height="300">
+
+
+> Be patient it takes time to run container sometimes 20 to 30 sec, to open ports. :smiley:
+
+
+___
+
+Now you can scale up service by following command
+```
+$ docker service scale Wordpress_wordpress=5
+```
+
+and Output should be like this
+```
+Wordpress_wordpress scaled to 5
+overall progress: 5 out of 5 tasks 
+1/5: running   [==================================================>] 
+2/5: running   [==================================================>] 
+3/5: running   [==================================================>] 
+4/5: running   [==================================================>] 
+5/5: running   [==================================================>] 
+verify: Service converged 
+```
+And Visulizer tab sholud look like this.
+
+<img src="https://github.com/rajneeshmehta/Docker/blob/master/Images/visualizer_with_5_replicas.jpg" alt="alt text" width="400" height="300">
+
+You can even Scale down service by same command
+```
+$ docker service scale Wordpress_wordpress=3
+```
+And Output looks like this
+```
+Wordpress_wordpress scaled to 3
+overall progress: 3 out of 3 tasks 
+1/3: running   [==================================================>] 
+2/3: running   [==================================================>] 
+3/3: running   [==================================================>] 
+verify: Service converged 
+```
+And Visulizer tab sholud look like this.
+
+<img src="https://github.com/rajneeshmehta/Docker/blob/master/Images/visualizer_with_3_replicas.jpg" alt="alt text" width="400" height="300">
+
+> Your Figure may vary.:relaxed: :thumbsup:
+
+To stop service Run following command
+```
+$ docker stack rm Wordpress
+```
+And Output looks like this
+```
+Removing service Wordpress_database
+Removing service Wordpress_visualizer
+Removing service Wordpress_wordpress
+Removing network Wordpress_default
+```
+
+to Ensure it's Gone run Following command
+```
+$ docker stack ps Wordpress
+```
+And Output looks like this
+```
+nothing found in stack: Wordpress
+```
+> If you see something other then this notice DESIRED STATE column it is remove. Wait for some time and Run above command again. 
