@@ -50,7 +50,7 @@ which provide you token like this
  ```
  it should show somthing like this. ( note leader may differ in my case it is node 3 )
  
- <img src="https://github.com/rajneeshmehta/Docker/blob/master/Images/node ls.jpg" alt="alt text" width="400" height="300">
+ <img src="https://github.com/rajneeshmehta/Docker/blob/master/Images/node ls.jpg" alt="alt text" width="900" height="250">
  
  > this command list all nodes in Swarm.
  
