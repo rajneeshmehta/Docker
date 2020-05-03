@@ -1,6 +1,6 @@
 version: '3.3'
 services:
-  dbos:
+  database:
     image: mysql:5.7
     volumes:
       - mysql_storage:/var/lib/mysql
@@ -10,16 +10,22 @@ services:
       MYSQL_USER: rajneesh
       MYSQL_PASSWORD: redhat
       MYSQL_DATABASE: mydb
+    depoly:
+      placement:
+        constraints: [node.role == manager]
+
 
   wordpress:
     image: wordpress:5.1.1-php7.3-apache
     restart: always
     depends_on:
-      - dbos
+      - database
     ports:
       - "8080:80"
+    deploy:
+      replicas: 2
     environment:
-      WORDPRESS_DB_HOST: dbos
+      WORDPRESS_DB_HOST: database
       WORDPRESS_DB_USER: rajneesh
       WORDPRESS_DB_PASSWORD: redhat
       WORDPRESS_DB_NAME: mydb
