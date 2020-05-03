@@ -1,0 +1,46 @@
+version: '3.4'
+services:
+  database:
+    image: mysql:5.7
+    volumes:
+      - mysql_storage:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_USER: rajneesh
+      MYSQL_PASSWORD: redhat
+      MYSQL_DATABASE: mydb
+    deploy: 
+      restart_policy:
+        condition: on-failure
+
+
+  wordpress:
+    image: wordpress:5.1.1-php7.3-apache
+    depends_on:
+      - database
+    ports:
+      - "8080:80"
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+    environment:
+      WORDPRESS_DB_HOST: database
+      WORDPRESS_DB_USER: rajneesh
+      WORDPRESS_DB_PASSWORD: redhat
+      WORDPRESS_DB_NAME: mydb
+    volumes:
+      - wp_storage:/var/www/html
+  visualizer:
+    image: dockersamples/visualizer
+    ports:
+      - "8081:8081"
+    stop_grace_period: 1m30s
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+volumes:
+  wp_storage: 
+  mysql_storage: 
